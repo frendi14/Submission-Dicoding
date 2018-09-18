@@ -6,14 +6,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.alfatih.submissiondikoding.R
 import com.alfatih.submissiondikoding.feature.home.adapter.LeaguesAdapter
-import com.alfatih.submissiondikoding.feature.home.contract.ItemLeaguesCallback
+import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.contract.LeaguesCallback
 import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import com.alfatih.submissiondikoding.feature.home.presenter.LeaguesPresenter
 import kotlinx.android.synthetic.main.activity_leagues.*
+import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
 
-class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemLeaguesCallback {
+class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
 
     private lateinit var adapter: LeaguesAdapter
     private lateinit var presenter: LeaguesPresenter
@@ -41,14 +42,13 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemLeaguesCallbac
     }
 
     override fun onShowProgress() {
-        progress.visibility = View.VISIBLE
     }
 
     override fun onHideProgress() {
-        progress.visibility = View.GONE
     }
 
     override fun onItemLeaguesClick(position: Int) {
-        startActivity<HomeActivity>("leagues" to position)
+        val model = lists[position]
+        startActivity<MatchActivity>("leagues" to model.id)
     }
 }

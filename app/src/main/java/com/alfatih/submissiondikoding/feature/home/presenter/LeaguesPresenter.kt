@@ -7,7 +7,7 @@ import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
+import kotlin.collections.ArrayList
 
 class LeaguesPresenter(val context: Context, val callback: LeaguesCallback) {
     private val list = ArrayList<LeaguesModel>()
@@ -20,13 +20,13 @@ class LeaguesPresenter(val context: Context, val callback: LeaguesCallback) {
 
                 override fun onResponse(call: Call<LeaguesModel.LeaguesResponse>?, response: Response<LeaguesModel.LeaguesResponse>?) {
                     if(Connection.checkHttpCode(response!!.code())){
-                        if (response.body().list.size > 0){
+                        if (response.body().countrys.isNotEmpty()){
                             list.clear()
-                            list.addAll(response.body().list)
-                            callback.onHideProgress()
+                            list.addAll(response.body().countrys)
                             callback.onRefreshList(list)
                         }
                     }
+                    callback.onHideProgress()
                 }
 
                 override fun onFailure(call: Call<LeaguesModel.LeaguesResponse>?, t: Throwable?) {

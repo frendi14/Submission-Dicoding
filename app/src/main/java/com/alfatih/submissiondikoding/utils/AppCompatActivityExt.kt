@@ -5,12 +5,20 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.Toast
 
 /**
  * Created by Frendi on 02/11/2017.
  */
 
+fun View.visible(){
+    visibility = View.VISIBLE
+}
+
+fun View.invisible(){
+    visibility = View.GONE
+}
 
 fun AppCompatActivity.replaceFragmentInActivity(fragment: Fragment, frameId: Int){
     supportFragmentManager.transact {

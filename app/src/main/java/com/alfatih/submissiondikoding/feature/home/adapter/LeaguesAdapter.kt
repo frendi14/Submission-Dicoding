@@ -1,7 +1,6 @@
 package com.alfatih.submissiondikoding.feature.home.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
@@ -10,7 +9,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import com.alfatih.submissiondikoding.R
-import com.alfatih.submissiondikoding.feature.home.contract.ItemLeaguesCallback
+import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -20,7 +19,7 @@ import org.jetbrains.anko.cardview.v7.cardView
 class LeaguesAdapter(val context: Context, private var list: MutableList<LeaguesModel>):
         RecyclerView.Adapter<LeaguesAdapter.ViewHolder>(){
 
-    private var callback: ItemLeaguesCallback? = null
+    private var callback: ItemCallback? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
             ViewHolder(ItemLeagusUI().createView(AnkoContext.create(parent.context,parent)))
@@ -48,7 +47,7 @@ class LeaguesAdapter(val context: Context, private var list: MutableList<Leagues
         }
     }
 
-    fun setLeaguesCallback(callback: ItemLeaguesCallback){
+    fun setLeaguesCallback(callback: ItemCallback){
         this.callback = callback
     }
 

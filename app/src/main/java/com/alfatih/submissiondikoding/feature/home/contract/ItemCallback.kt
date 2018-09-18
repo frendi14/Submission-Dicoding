@@ -1,6 +1,6 @@
 package com.alfatih.submissiondikoding.feature.home.contract
 
-interface ItemLeaguesCallback {
+interface ItemCallback {
 
     fun onItemLeaguesClick(position: Int)
 
