@@ -22,7 +22,8 @@
         <activity android:name=".feature.detail.DetailActivity" />
         <activity
             android:name=".feature.home.MatchActivity"
-            android:label="@string/title_activity_home" />
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

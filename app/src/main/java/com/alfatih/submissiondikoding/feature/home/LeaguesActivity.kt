@@ -3,15 +3,15 @@ package com.alfatih.submissiondikoding.feature.home
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
-import android.view.View
 import com.alfatih.submissiondikoding.R
 import com.alfatih.submissiondikoding.feature.home.adapter.LeaguesAdapter
 import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.contract.LeaguesCallback
 import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import com.alfatih.submissiondikoding.feature.home.presenter.LeaguesPresenter
+import com.alfatih.submissiondikoding.utils.invisible
+import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_leagues.*
-import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
 
 class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
@@ -42,9 +42,11 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
     }
 
     override fun onShowProgress() {
+        progress.visible()
     }
 
     override fun onHideProgress() {
+        progress.invisible()
     }
 
     override fun onItemLeaguesClick(position: Int) {

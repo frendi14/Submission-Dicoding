@@ -1,330 +1,417 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".feature.detail.DetailActivity">
 
-    <LinearLayout
-        android:gravity="center"
-        android:padding="15dp"
-        android:orientation="vertical"
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="-8dp"
+        android:indeterminate="true"
+        android:visibility="gone"/>
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TextView
-            tools:text="sab 17 agustus 2018"
-            android:id="@+id/detail_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
         <LinearLayout
-            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:orientation="horizontal"
+            android:padding="15dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_marginEnd="20dp"
-                android:gravity="center"
-                android:orientation="vertical"
+            <TextView
+                tools:text="sab 17 agustus 2018"
+                android:textColor="@color/colorPrimary"
+                android:id="@+id/detail_date"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:baselineAligned="false"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/detail_logo_home"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@drawable/ic_logonotfound"/>
+                <LinearLayout
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/detail_logo_home"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:background="@drawable/ic_logonotfound"/>
+
+                    <TextView
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp"
+                        android:id="@+id/detail_name_home"
+                        android:textAlignment="center"
+                        tools:text="Areama FC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textAlignment="center"
+                        tools:text="4-3-2-1"
+                        android:id="@+id/detail_formasi_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        tools:text="12"
+                        android:id="@+id/detail_score_home"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="25sp"
+                        android:id="@+id/detail_VS"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="VS"
+                        android:layout_margin="10dp" />
+
+                    <TextView
+                        tools:text="12"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:id="@+id/detail_score_away"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginStart="20dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/detail_logo_away"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        tools:background="@drawable/ic_logonotfound"/>
+
+                    <TextView
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="17sp"
+                        android:textAlignment="center"
+                        android:id="@+id/detail_name_away"
+                        tools:text="Persija FC"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:textAlignment="center"
+                        tools:text="4-3-2-1"
+                        android:id="@+id/detail_formasi_away"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/detail_name_home"
-                    tools:text="Areama FC"
+                    android:id="@+id/detail_goals_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsads\nasdasdasddaasda\nsadasdsadfdgfdgtrtr"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Goals"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    tools:text="4-3-2-1"
-                    android:id="@+id/detail_formasi_home"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/detail_goals_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-            <TextView
-                tools:text="12"
-                android:id="@+id/detail_score_home"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_VS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="VS"
-                android:layout_margin="10dp" />
-
-            <TextView
-                tools:text="12"
-                android:id="@+id/detail_score_away"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
             <LinearLayout
-                android:layout_marginStart="20dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <ImageView
-                    android:id="@+id/detail_logo_away"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    tools:background="@drawable/ic_logonotfound"/>
+                <TextView
+                    android:id="@+id/detail_shots_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
 
                 <TextView
-                    android:id="@+id/detail_name_away"
-                    tools:text="Persija FC"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Shots"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    tools:text="4-3-2-1"
-                    android:id="@+id/detail_formasi_away"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/detail_shots_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
 
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <View
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
 
             <TextView
-                android:id="@+id/detail_goals_home"
-                android:gravity="start"
-                tools:text="dasdadsadsads\nasdasdasddaasda\nsadasdsadfdgfdgtrtr"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Goals"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="10dp"
+                android:text="lineups"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-            <TextView
-                android:id="@+id/detail_goals_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detail_GoalKeeper_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Goal Keeper"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detail_GoalKeeper_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detail_def_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Defense"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detail_def_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detail_mid_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="MidField"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detail_mid_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detail_forward_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Forward"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detail_forward_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/detail_subs_home"
+                    android:gravity="start"
+                    tools:text="dasdadsadsadsadasdadsadsadsa"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="17sp"
+                    android:gravity="center"
+                    android:text="Subtitutes"
+                    android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/detail_subs_away"
+                    tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
+                    android:gravity="end"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </ScrollView>
 
-            <TextView
-                android:id="@+id/detail_shots_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Shots"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_shots_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <TextView
-            android:text="lineups"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_GoalKeeper_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Goal Keeper"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_GoalKeeper_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_def_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Defense"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_def_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_mid_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="MidField"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_mid_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_forward_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Forward"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_forward_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/detail_subs_home"
-                android:gravity="start"
-                tools:text="dasdadsadsadsadasdadsadsadsa"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:gravity="center"
-                android:text="Subtitutes"
-                android:paddingEnd="15dp"
-                android:paddingStart="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/detail_subs_away"
-                tools:text="sadadsadsadsadsafdgdgfdgyrrtfdgtefdsfdsfrdsfggfhgfhgfgfhfdrdsfedsf"
-                android:gravity="end"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

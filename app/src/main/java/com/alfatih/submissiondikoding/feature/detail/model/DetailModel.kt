@@ -73,8 +73,11 @@ data class DetailModel(
         var dateEvent: String,
         @SerializedName("strDate")
         @Expose
-        var strDate: String
+        var strDate: String,
+        @SerializedName("idHomeTeam")
+        var idHomeTeam: String,
+        @SerializedName("idAwayTeam")
+        var idAwayTeam: String
 ) {
-
-    data class DetailResponse (val events: List<DetailModel>)
+        data class DetailResponse (val events: List<DetailModel>)
 }

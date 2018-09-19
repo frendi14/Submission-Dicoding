@@ -5,14 +5,16 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.alfatih.submissiondikoding.R
+import com.alfatih.submissiondikoding.connection.Connection
 import com.alfatih.submissiondikoding.feature.detail.DetailActivity
 import com.alfatih.submissiondikoding.feature.home.adapter.MatchAdapter
 import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.contract.MatchCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.alfatih.submissiondikoding.feature.home.presenter.MatchPresenter
+import com.alfatih.submissiondikoding.utils.invisible
+import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_match.*
-import org.jetbrains.anko.indeterminateProgressDialog
 import org.jetbrains.anko.startActivity
 
 class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
@@ -41,13 +43,13 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_prev_match -> {
+                adapter.clear()
                 presenter.getData(MatchPresenter.KEY_PASTMATCH,paramMatch)
-                adapter.setIsNext(false)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_next_match -> {
+                adapter.clear()
                 presenter.getData(MatchPresenter.KEY_NEXTMATCH,paramMatch)
-                adapter.setIsNext(true)
                 return@OnNavigationItemSelectedListener true
             }
         }
@@ -59,17 +61,21 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
         startActivity<DetailActivity>("eventId" to model.idMatch)
     }
 
-    override fun onRefreshList(list: ArrayList<MatchModel>) {
+    override fun onRefreshList(list: ArrayList<MatchModel>, next: Int) {
         lists.clear()
         lists.addAll(list)
         adapter.notifyDataSetChanged()
+        when(next){
+            MatchPresenter.KEY_NEXTMATCH -> adapter.setIsNext(true)
+            MatchPresenter.KEY_PASTMATCH -> adapter.setIsNext(false)
+        }
     }
 
     override fun onShowProgress() {
-//        indeterminateProgressDialog("")
+        progress.visible()
     }
 
     override fun onHideProgress() {
-
+        progress.invisible()
     }
 }

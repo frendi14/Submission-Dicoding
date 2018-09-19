@@ -15,6 +15,7 @@ data class MatchModel(
         var teamTwoName: String,
         @SerializedName("intAwayScore")
         var teamTwoScore: String
+
 ) {
     data class ListMatchResponse(val events: List<MatchModel>)
 }

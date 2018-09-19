@@ -4,11 +4,17 @@ import android.content.Context
 import com.alfatih.submissiondikoding.connection.Connection
 import com.alfatih.submissiondikoding.feature.detail.contract.DetailCallback
 import com.alfatih.submissiondikoding.feature.detail.model.DetailModel
+import com.alfatih.submissiondikoding.feature.detail.model.TeamModel
+import com.alfatih.submissiondikoding.utils.DateStringUtils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DetailPresenter (val context: Context, val callback: DetailCallback) {
+
+    private var homeURL = ""
+    private var awayURL = ""
+    private lateinit var model: DetailModel
 
     fun getDataDetail(iventId: Int){
         if(Connection.isNetworkAvailable(context)){
@@ -19,16 +25,80 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
                 override fun onResponse(call: Call<DetailModel.DetailResponse>?, response: Response<DetailModel.DetailResponse>?) {
                     if(Connection.checkHttpCode(response!!.code())){
                         if(response.body().events.isNotEmpty()){
-                            callback.onLoadData(response.body().events[0])
+                            model = response.body().events[0]
+                            model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
+                            model.strHomeGoalDetails = filter(model.strHomeGoalDetails)
+                            model.strHomeLineupDefense = filter(model.strHomeLineupDefense)
+                            model.strHomeLineupMidfield = filter(model.strHomeLineupMidfield)
+                            model.strHomeLineupForward = filter(model.strHomeLineupForward)
+                            model.strHomeLineupSubstitutes = filter(model.strHomeLineupSubstitutes)
+
+                            model.strAwayGoalDetails = filter(model.strAwayGoalDetails)
+                            model.strAwayLineupDefense = filter(model.strAwayLineupDefense)
+                            model.strAwayLineupMidfield = filter(model.strAwayLineupMidfield)
+                            model.strAwayLineupForward = filter(model.strAwayLineupForward)
+                            model.strAwayLineupSubstitutes = filter(model.strAwayLineupSubstitutes)
+
+                            getTeamDetailHome(model.idHomeTeam.toInt())
                         }
                     }
-                    callback.onHideProgress()
                 }
 
                 override fun onFailure(call: Call<DetailModel.DetailResponse>?, t: Throwable?) {
                     callback.onHideProgress()
                 }
             })
+        }
+    }
+
+    private fun getTeamDetailHome(id: Int){
+        if(Connection.isNetworkAvailable(context)){
+            val call: Call<TeamModel.TeamResponse> = Connection.open().getTeamDetail(id)
+            call.enqueue(object: Callback<TeamModel.TeamResponse>{
+
+                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
+                    if (Connection.checkHttpCode(response!!.code())){
+                        if(response.body().teams?.isNotEmpty()){
+                            homeURL = response.body().teams[0].teamBadge
+                            getTeamDetailAway(model.idAwayTeam.toInt())
+                        }
+                    }
+                }
+
+                override fun onFailure(call: Call<TeamModel.TeamResponse>?, t: Throwable?) {
+                    callback.onHideProgress()
+                }
+            })
+        }
+    }
+
+    private fun getTeamDetailAway(id: Int){
+        if(Connection.isNetworkAvailable(context)){
+            val call: Call<TeamModel.TeamResponse> = Connection.open().getTeamDetail(id)
+            call.enqueue(object: Callback<TeamModel.TeamResponse>{
+
+                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
+                    if (Connection.checkHttpCode(response!!.code())){
+                        if(response.body().teams?.isNotEmpty()){
+                            awayURL = response.body().teams[0].teamBadge
+                            callback.onLoadData(model,awayURL,homeURL)
+                        }
+                    }
+                    callback.onHideProgress()
+                }
+
+                override fun onFailure(call: Call<TeamModel.TeamResponse>?, t: Throwable?) {
+                    callback.onHideProgress()
+                }
+            })
+        }
+    }
+
+    fun filter(input: String?):String{
+        return if (input.isNullOrEmpty()){
+            ""
+        }else{
+            input!!.replace(";","\n")
         }
     }
 

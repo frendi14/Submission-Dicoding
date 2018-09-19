@@ -7,18 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".feature.home.LeaguesActivity">
 
-    <!--<ProgressBar-->
-        <!--android:id="@+id/progress"-->
-        <!--style="@style/Widget.AppCompat.ProgressBar.Horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_marginTop="-8dp"-->
-        <!--android:indeterminate="true"-->
-        <!--android:visibility="gone"/>-->
+    <ProgressBar
+        android:id="@+id/progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="-8dp"
+        android:indeterminate="true"
+        android:visibility="gone"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerLeagues"
-        android:background="@color/colorGray"
+        android:background="@color/colorGray2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

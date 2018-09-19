@@ -1,6 +1,7 @@
 package com.alfatih.submissiondikoding.connection
 
 import com.alfatih.submissiondikoding.feature.detail.model.DetailModel
+import com.alfatih.submissiondikoding.feature.detail.model.TeamModel
 import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import retrofit2.Call
@@ -20,4 +21,7 @@ interface ConnectionInterface {
 
     @GET("lookupevent.php")
     fun getDetail(@Query(value = "id", encoded = true) param: Int): Call<DetailModel.DetailResponse>
+
+    @GET("lookupteam.php")
+    fun getTeamDetail(@Query(value = "id", encoded = true) param: Int): Call<TeamModel.TeamResponse>
 }
