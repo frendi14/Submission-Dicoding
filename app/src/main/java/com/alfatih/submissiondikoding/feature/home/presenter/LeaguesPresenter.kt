@@ -20,7 +20,8 @@ class LeaguesPresenter(val context: Context, val callback: LeaguesCallback) {
 
                 override fun onResponse(call: Call<LeaguesModel.LeaguesResponse>?, response: Response<LeaguesModel.LeaguesResponse>?) {
                     if(Connection.checkHttpCode(response!!.code())){
-                        if (response.body().countrys.isNotEmpty()){
+                        // data di countrys tertentu ada yang null
+                        if (response.body().countrys?.isNotEmpty()){
                             list.clear()
                             list.addAll(response.body().countrys)
                             callback.onRefreshList(list)

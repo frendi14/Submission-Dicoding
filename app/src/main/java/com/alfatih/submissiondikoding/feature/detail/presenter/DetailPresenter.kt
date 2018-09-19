@@ -24,7 +24,8 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
 
                 override fun onResponse(call: Call<DetailModel.DetailResponse>?, response: Response<DetailModel.DetailResponse>?) {
                     if(Connection.checkHttpCode(response!!.code())){
-                        if(response.body().events.isNotEmpty()){
+                        // data di events tertentu ada yang null
+                        if(response.body().events?.isNotEmpty()){
                             model = response.body().events[0]
                             model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
                             model.strHomeGoalDetails = filter(model.strHomeGoalDetails)
@@ -58,6 +59,7 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
 
                 override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
                     if (Connection.checkHttpCode(response!!.code())){
+                        // data di teams tertentu ada yang null
                         if(response.body().teams?.isNotEmpty()){
                             homeURL = response.body().teams[0].teamBadge
                             getTeamDetailAway(model.idAwayTeam.toInt())
@@ -79,6 +81,7 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
 
                 override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
                     if (Connection.checkHttpCode(response!!.code())){
+                        // data di teams tertentu ada yang null
                         if(response.body().teams?.isNotEmpty()){
                             awayURL = response.body().teams[0].teamBadge
                             callback.onLoadData(model,awayURL,homeURL)

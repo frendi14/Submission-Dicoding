@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,6 +59,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:contentDescription="@string/logo_team_home"
                         android:id="@+id/detail_logo_home"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -105,7 +105,7 @@
                         android:id="@+id/detail_VS"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="VS"
+                        android:text="@string/vs"
                         android:layout_margin="10dp" />
 
                     <TextView
@@ -128,6 +128,7 @@
                     android:layout_height="wrap_content">
 
                     <ImageView
+                        android:contentDescription="@string/logo_team_away"
                         android:id="@+id/detail_logo_away"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
@@ -177,7 +178,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Goals"
+                    android:text="@string/goals"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -211,7 +212,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Shots"
+                    android:text="@string/shots"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -236,7 +237,7 @@
                 android:textSize="15sp"
                 android:textColor="@color/colorBlack"
                 android:layout_marginTop="10dp"
-                android:text="lineups"
+                android:text="@string/lineups"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -258,7 +259,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Goal Keeper"
+                    android:text="@string/goal_keeper"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -292,7 +293,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Defense"
+                    android:text="@string/defense"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -326,7 +327,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="MidField"
+                    android:text="@string/midfield"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -360,7 +361,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Forward"
+                    android:text="@string/forward"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"
@@ -394,7 +395,7 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="17sp"
                     android:gravity="center"
-                    android:text="Subtitutes"
+                    android:text="@string/subtitutes"
                     android:paddingEnd="15dp"
                     android:paddingStart="15dp"
                     android:layout_width="wrap_content"

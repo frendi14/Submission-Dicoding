@@ -37,12 +37,12 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
     }
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        val matchClick: CardView = view.find(item_match_click)
-        val teamOnename: TextView = view.find(item_match_team_one_name)
-        val teamOneScor: TextView = view.find(item_match_team_one_score)
-        val teamTwoname: TextView = view.find(item_match_team_two_name)
-        val teamTwoScor: TextView = view.find(item_match_team_two_score)
-        val teamDates: TextView = view.find(item_match_date)
+        private val matchClick: CardView = view.find(item_match_click)
+        private val teamOnename: TextView = view.find(item_match_team_one_name)
+        private val teamOneScor: TextView = view.find(item_match_team_one_score)
+        private val teamTwoname: TextView = view.find(item_match_team_two_name)
+        private val teamTwoScor: TextView = view.find(item_match_team_two_score)
+        private val teamDates: TextView = view.find(item_match_date)
 
         fun bindItem(model: MatchModel){
             teamOnename.text = model.teamOneName

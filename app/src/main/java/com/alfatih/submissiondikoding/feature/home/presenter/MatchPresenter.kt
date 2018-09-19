@@ -31,7 +31,8 @@ class MatchPresenter(val context: Context, val callback: MatchCallback) {
 
                 override fun onResponse(call: Call<MatchModel.ListMatchResponse>?, response: Response<MatchModel.ListMatchResponse>?) {
                     if(Connection.checkHttpCode(response!!.code())){
-                        if((response.body().events != null) && (response.body().events.isNotEmpty())){
+                        // data di league tertentu ada ynag null
+                        if((response.body().events?.isNotEmpty())){
                             list.clear()
                             list.addAll(response.body().events)
                             callback.onRefreshList(list, requset)

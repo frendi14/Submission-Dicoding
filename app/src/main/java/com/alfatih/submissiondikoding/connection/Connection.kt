@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object Connection {
 
-    const val timeout = 60 //second
+    private const val timeout = 60 //second
 
     fun open():ConnectionInterface{
         val gson: Gson = GsonBuilder()

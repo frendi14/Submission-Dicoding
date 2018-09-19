@@ -5,7 +5,6 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import com.alfatih.submissiondikoding.R
-import com.alfatih.submissiondikoding.connection.Connection
 import com.alfatih.submissiondikoding.feature.detail.DetailActivity
 import com.alfatih.submissiondikoding.feature.home.adapter.MatchAdapter
 import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
