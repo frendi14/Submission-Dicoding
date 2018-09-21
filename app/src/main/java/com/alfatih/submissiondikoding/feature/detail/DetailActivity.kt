@@ -13,7 +13,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detail.*
 
-class DetailActivity : AppCompatActivity(), DetailCallback {
+class DetailActivity : AppCompatActivity(), DetailCallback.View {
 
     private lateinit var presenter: DetailPresenter
     private var params = 0
@@ -22,7 +22,8 @@ class DetailActivity : AppCompatActivity(), DetailCallback {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         params = intent.extras?.getInt("eventId",0)!!
-        presenter = DetailPresenter(this,this)
+        presenter = DetailPresenter(this)
+        presenter.onAttach(this)
     }
 
     override fun onStart() {
@@ -67,6 +68,11 @@ class DetailActivity : AppCompatActivity(), DetailCallback {
                     .into(detail_logo_away)
         }
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.onDetach()
     }
 
     override fun onShowProgress() {

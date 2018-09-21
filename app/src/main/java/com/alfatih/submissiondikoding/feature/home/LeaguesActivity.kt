@@ -14,7 +14,7 @@ import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_leagues.*
 import org.jetbrains.anko.startActivity
 
-class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
+class LeaguesActivity : AppCompatActivity(), LeaguesCallback.View, ItemCallback {
 
     private lateinit var adapter: LeaguesAdapter
     private lateinit var presenter: LeaguesPresenter
@@ -25,7 +25,8 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
         setContentView(R.layout.activity_leagues)
         adapter = LeaguesAdapter(this,lists)
         adapter.setLeaguesCallback(this)
-        presenter = LeaguesPresenter(this, this)
+        presenter = LeaguesPresenter(this)
+        presenter.onAttach(this)
         recyclerLeagues.layoutManager = LinearLayoutManager(this)
         recyclerLeagues.adapter = adapter
     }
@@ -39,6 +40,11 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback, ItemCallback {
         lists.clear()
         lists.addAll(list)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.onDetach()
     }
 
     override fun onShowProgress() {

@@ -8,18 +8,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MatchPresenter(val context: Context, val callback: MatchCallback) {
+class MatchPresenter(val context: Context): MatchCallback.Presenter {
 
     private val list = ArrayList<MatchModel>()
+    private var callback: MatchCallback.View? = null
 
     companion object {
         const val KEY_NEXTMATCH = 421
         const val KEY_PASTMATCH = 422
     }
 
-    fun getData(requset: Int, id: Int) {
+    override fun getData(requset: Int, id: Int) {
         if(Connection.isNetworkAvailable(context)){
-            callback.onShowProgress()
+            callback?.onShowProgress()
             var call: Call<MatchModel.ListMatchResponse>? = null
 
             when(requset){
@@ -35,20 +36,28 @@ class MatchPresenter(val context: Context, val callback: MatchCallback) {
                         if((response.body().events?.isNotEmpty())){
                             list.clear()
                             list.addAll(response.body().events)
-                            callback.onRefreshList(list, requset)
+                            callback?.onRefreshList(list, requset)
                         }else{
                             list.clear()
-                            callback.onRefreshList(list, requset)
+                            callback?.onRefreshList(list, requset)
                         }
-                        callback.onHideProgress()
+                        callback?.onHideProgress()
                     }
                 }
 
                 override fun onFailure(call: Call<MatchModel.ListMatchResponse>?, t: Throwable?) {
                     t?.printStackTrace()
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
             })
         }
+    }
+
+    override fun onAttach(View: MatchCallback.View) {
+        callback = View
+    }
+
+    override fun onDetach() {
+        callback = null
     }
 }

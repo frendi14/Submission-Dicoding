@@ -16,7 +16,7 @@ import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_match.*
 import org.jetbrains.anko.startActivity
 
-class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
+class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback.View {
 
     private lateinit var adapter: MatchAdapter
     private lateinit var presenter: MatchPresenter
@@ -31,7 +31,8 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
                 paramMatch = bundle.getInt("leagues",0)
         }
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        presenter = MatchPresenter(this,this)
+        presenter = MatchPresenter(this)
+        presenter.onAttach(this)
         adapter = MatchAdapter(lists,false)
         adapter.setItemOnClick(this)
         recyclerMatch.layoutManager = LinearLayoutManager(this)
@@ -68,6 +69,11 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback {
             MatchPresenter.KEY_NEXTMATCH -> adapter.setIsNext(true)
             MatchPresenter.KEY_PASTMATCH -> adapter.setIsNext(false)
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.onDetach()
     }
 
     override fun onShowProgress() {

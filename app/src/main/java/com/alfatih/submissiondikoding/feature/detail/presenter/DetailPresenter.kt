@@ -10,15 +10,16 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailPresenter (val context: Context, val callback: DetailCallback) {
+class DetailPresenter (val context: Context): DetailCallback.Presenter {
 
     private var homeURL = ""
     private var awayURL = ""
     private lateinit var model: DetailModel
+    private var callback: DetailCallback.View? = null
 
-    fun getDataDetail(iventId: Int){
+    override fun getDataDetail(iventId: Int){
         if(Connection.isNetworkAvailable(context)){
-            callback.onShowProgress()
+            callback?.onShowProgress()
             val call: Call<DetailModel.DetailResponse> = Connection.open().getDetail(iventId)
             call.enqueue(object: Callback<DetailModel.DetailResponse>{
 
@@ -46,7 +47,7 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
                 }
 
                 override fun onFailure(call: Call<DetailModel.DetailResponse>?, t: Throwable?) {
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
             })
         }
@@ -68,7 +69,7 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
                 }
 
                 override fun onFailure(call: Call<TeamModel.TeamResponse>?, t: Throwable?) {
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
             })
         }
@@ -84,17 +85,25 @@ class DetailPresenter (val context: Context, val callback: DetailCallback) {
                         // data di teams tertentu ada yang null
                         if(response.body().teams?.isNotEmpty()){
                             awayURL = response.body().teams[0].teamBadge
-                            callback.onLoadData(model,awayURL,homeURL)
+                            callback?.onLoadData(model,awayURL,homeURL)
                         }
                     }
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
 
                 override fun onFailure(call: Call<TeamModel.TeamResponse>?, t: Throwable?) {
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
             })
         }
+    }
+
+    override fun onAttach(View: DetailCallback.View) {
+        callback = View
+    }
+
+    override fun onDetach() {
+        callback = null
     }
 
     fun filter(input: String?):String{

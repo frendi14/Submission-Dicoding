@@ -9,12 +9,14 @@ import retrofit2.Callback
 import retrofit2.Response
 import kotlin.collections.ArrayList
 
-class LeaguesPresenter(val context: Context, val callback: LeaguesCallback) {
-    private val list = ArrayList<LeaguesModel>()
+class LeaguesPresenter(val context: Context): LeaguesCallback.Presenter {
 
-    fun getDataLeagues(){
+    private val list = ArrayList<LeaguesModel>()
+    private var callback: LeaguesCallback.View? = null
+
+    override fun getDataLeagues(){
         if (Connection.isNetworkAvailable(context)){
-            callback.onShowProgress()
+            callback?.onShowProgress()
             val call: Call<LeaguesModel.LeaguesResponse> = Connection.open().getLeagues()
             call.enqueue(object: Callback<LeaguesModel.LeaguesResponse>{
 
@@ -24,18 +26,26 @@ class LeaguesPresenter(val context: Context, val callback: LeaguesCallback) {
                         if (response.body().countrys?.isNotEmpty()){
                             list.clear()
                             list.addAll(response.body().countrys)
-                            callback.onRefreshList(list)
+                            callback?.onRefreshList(list)
                         }
                     }
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
 
                 override fun onFailure(call: Call<LeaguesModel.LeaguesResponse>?, t: Throwable?) {
-                    callback.onHideProgress()
+                    callback?.onHideProgress()
                 }
 
             })
         }
+    }
+
+    override fun onAttach(View: LeaguesCallback.View) {
+        callback = View
+    }
+
+    override fun onDetach() {
+        callback = null
     }
 
 }
