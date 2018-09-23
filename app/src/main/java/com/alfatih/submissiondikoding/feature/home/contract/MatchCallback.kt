@@ -13,6 +13,7 @@ interface MatchCallback {
 
     interface Presenter: BasePresenter<View>{
         fun getData(request: Int, id: Int)
+        fun getFavorite()
     }
 
 }

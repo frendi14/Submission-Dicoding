@@ -2,6 +2,7 @@ package com.alfatih.submissiondikoding.feature.home.presenter
 
 import android.content.Context
 import com.alfatih.submissiondikoding.connection.Connection
+import com.alfatih.submissiondikoding.database.Database
 import com.alfatih.submissiondikoding.feature.home.contract.MatchCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import retrofit2.Call
@@ -51,6 +52,16 @@ class MatchPresenter(val context: Context): MatchCallback.Presenter {
                 }
             })
         }
+    }
+
+    override fun getFavorite(){
+        val db = Database(context)
+        val listDb = db.selectFavorite()
+        list.clear()
+        if((listDb != null) && listDb.isEmpty()){
+            list.addAll(db.selectFavorite()!!.toTypedArray())
+        }
+        callback?.onRefreshList(list, 0)
     }
 
     override fun onAttach(View: MatchCallback.View) {

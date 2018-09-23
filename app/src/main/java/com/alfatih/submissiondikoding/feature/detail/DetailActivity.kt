@@ -2,13 +2,19 @@ package com.alfatih.submissiondikoding.feature.detail
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.app.AppCompatDelegate
 import android.text.TextUtils
+import android.view.Menu
+import android.view.MenuItem
 import com.alfatih.submissiondikoding.R
 import com.alfatih.submissiondikoding.feature.detail.contract.DetailCallback
 import com.alfatih.submissiondikoding.feature.detail.model.DetailModel
 import com.alfatih.submissiondikoding.feature.detail.presenter.DetailPresenter
 import com.alfatih.submissiondikoding.utils.invisible
 import com.alfatih.submissiondikoding.utils.visible
+import com.alfatih.submissiondikoding.R.menu.add_to_favorite
+import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detail.*
@@ -17,10 +23,14 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
 
     private lateinit var presenter: DetailPresenter
     private var params = 0
+    private var menuItem: Menu? = null
+    private var isFavorite = false
+    private var matchModel: MatchModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         params = intent.extras?.getInt("eventId",0)!!
         presenter = DetailPresenter(this)
         presenter.onAttach(this)
@@ -32,6 +42,10 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
     }
 
     override fun onLoadData(model: DetailModel, away: String, home: String) {
+        matchModel = MatchModel(
+                model.idEvent.toInt(),model.dateEvent,model.strHomeTeam,model.intHomeScore,
+                model.strAwayTeam,model.intAwayScore,false)
+        presenter.checkingData(model.idEvent.toInt())
 
         detail_score_home.text = model.intHomeScore
         detail_date.text = model.dateEvent
@@ -68,6 +82,41 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
                     .into(detail_logo_away)
         }
 
+    }
+
+    override fun isExist(value: Boolean) {
+        isFavorite = value
+        setFavorite()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(add_to_favorite,menu)
+        menuItem = menu
+        setFavorite()
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            R.id.add_to_favorite -> {
+                when {
+                    isFavorite -> presenter.insertFavorite(matchModel!!)
+                    else -> presenter.deleteFavorite(params)
+                }
+                isFavorite = !isFavorite
+                setFavorite()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    }
+
+    private fun setFavorite() {
+        if (isFavorite)
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_start_added_favorite)
+        else
+            menuItem?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_star_add_favorite)
     }
 
     override fun onStop() {

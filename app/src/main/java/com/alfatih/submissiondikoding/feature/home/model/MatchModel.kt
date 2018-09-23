@@ -14,8 +14,8 @@ data class MatchModel(
         @SerializedName("strAwayTeam")
         var teamTwoName: String,
         @SerializedName("intAwayScore")
-        var teamTwoScore: String
-
+        var teamTwoScore: String,
+        var isNextMatch: Boolean
 ) {
     data class ListMatchResponse(val events: List<MatchModel>)
 }

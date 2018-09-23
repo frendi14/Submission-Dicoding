@@ -52,6 +52,11 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback.View {
                 presenter.getData(MatchPresenter.KEY_NEXTMATCH,paramMatch)
                 return@OnNavigationItemSelectedListener true
             }
+            R.id.navigation_favorite -> {
+                adapter.clear()
+                presenter.getFavorite()
+                return@OnNavigationItemSelectedListener true
+            }
         }
         false
     }

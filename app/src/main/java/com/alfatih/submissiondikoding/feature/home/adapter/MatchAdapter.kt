@@ -54,7 +54,7 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
                 callback?.onItemLeaguesClick(adapterPosition)
             }
             when {
-                isNext -> {
+                isNext || model.isNextMatch -> {
                     teamOneScor.visibility = View.GONE
                     teamTwoScor.visibility = View.GONE
                 }

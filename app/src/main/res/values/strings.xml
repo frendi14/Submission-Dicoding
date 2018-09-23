@@ -28,4 +28,9 @@
     <string name="forward">Forward</string>
     <string name="subtitutes">Subtitutes</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="favorite_match">favorite</string>
+    <string name="favorite_menu">favorite</string>
+
 </resources>

@@ -2,9 +2,11 @@ package com.alfatih.submissiondikoding.feature.detail.presenter
 
 import android.content.Context
 import com.alfatih.submissiondikoding.connection.Connection
+import com.alfatih.submissiondikoding.database.Database
 import com.alfatih.submissiondikoding.feature.detail.contract.DetailCallback
 import com.alfatih.submissiondikoding.feature.detail.model.DetailModel
 import com.alfatih.submissiondikoding.feature.detail.model.TeamModel
+import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.alfatih.submissiondikoding.utils.DateStringUtils
 import retrofit2.Call
 import retrofit2.Callback
@@ -16,6 +18,7 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
     private var awayURL = ""
     private lateinit var model: DetailModel
     private var callback: DetailCallback.View? = null
+    private val database = Database(context)
 
     override fun getDataDetail(iventId: Int){
         if(Connection.isNetworkAvailable(context)){
@@ -51,6 +54,22 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
                 }
             })
         }
+    }
+
+    override fun checkingData(id: Int) {
+        val result = database.selectFavoriteById(id.toString())
+        when {
+            (result != null) && (!result.isEmpty()) -> callback?.isExist(true)
+            else -> callback?.isExist(false)
+        }
+    }
+
+    override fun insertFavorite(model: MatchModel) {
+        database.insertFavorite(model)
+    }
+
+    override fun deleteFavorite(idIvent: Int) {
+        database.deleteFavorite(idIvent.toString())
     }
 
     private fun getTeamDetailHome(id: Int){
