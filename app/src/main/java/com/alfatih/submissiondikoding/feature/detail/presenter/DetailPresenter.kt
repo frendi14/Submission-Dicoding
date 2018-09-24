@@ -32,17 +32,22 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
                         if(response.body().events?.isNotEmpty()){
                             model = response.body().events[0]
                             model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
-                            model.strHomeGoalDetails = filter(model.strHomeGoalDetails)
-                            model.strHomeLineupDefense = filter(model.strHomeLineupDefense)
-                            model.strHomeLineupMidfield = filter(model.strHomeLineupMidfield)
-                            model.strHomeLineupForward = filter(model.strHomeLineupForward)
-                            model.strHomeLineupSubstitutes = filter(model.strHomeLineupSubstitutes)
 
-                            model.strAwayGoalDetails = filter(model.strAwayGoalDetails)
-                            model.strAwayLineupDefense = filter(model.strAwayLineupDefense)
-                            model.strAwayLineupMidfield = filter(model.strAwayLineupMidfield)
-                            model.strAwayLineupForward = filter(model.strAwayLineupForward)
-                            model.strAwayLineupSubstitutes = filter(model.strAwayLineupSubstitutes)
+                            model.strHomeGoalDetails = filterString(model.strHomeGoalDetails)
+                            model.strHomeLineupDefense = filterString(model.strHomeLineupDefense)
+                            model.strHomeLineupMidfield = filterString(model.strHomeLineupMidfield)
+                            model.strHomeLineupForward = filterString(model.strHomeLineupForward)
+                            model.strHomeLineupSubstitutes = filterString(model.strHomeLineupSubstitutes)
+                            model.intHomeScore = filterInteger(model.intHomeScore)
+                            model.intHomeShots = filterInteger(model.intHomeShots)
+
+                            model.strAwayGoalDetails = filterString(model.strAwayGoalDetails)
+                            model.strAwayLineupDefense = filterString(model.strAwayLineupDefense)
+                            model.strAwayLineupMidfield = filterString(model.strAwayLineupMidfield)
+                            model.strAwayLineupForward = filterString(model.strAwayLineupForward)
+                            model.strAwayLineupSubstitutes = filterString(model.strAwayLineupSubstitutes)
+                            model.intAwayScore = filterInteger(model.intAwayScore)
+                            model.intAwayShots = filterInteger(model.intAwayShots)
 
                             getTeamDetailHome(model.idHomeTeam.toInt())
                         }
@@ -57,7 +62,7 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
     }
 
     override fun checkingData(id: Int) {
-        val result = database.selectFavoriteById(id.toString())
+        val result = database.selectFavoriteById(id)
         when {
             (result != null) && (!result.isEmpty()) -> callback?.isExist(true)
             else -> callback?.isExist(false)
@@ -125,11 +130,17 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
         callback = null
     }
 
-    fun filter(input: String?):String{
-        return if (input.isNullOrEmpty()){
-            ""
-        }else{
-            input!!.replace(";","\n")
+    fun filterString(input: String?):String{
+        return when {
+            input.isNullOrEmpty() -> ""
+            else -> input!!.replace(";","\n")
+        }
+    }
+
+    fun filterInteger(input: String?): String{
+        return when {
+            input.isNullOrEmpty()-> "0"
+            else -> input.toString()
         }
     }
 

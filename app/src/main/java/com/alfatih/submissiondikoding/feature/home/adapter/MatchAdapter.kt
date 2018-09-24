@@ -20,6 +20,7 @@ import com.alfatih.submissiondikoding.R.id.item_match_team_two_score
 import com.alfatih.submissiondikoding.R.id.item_match_team_two_name
 import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
+import com.alfatih.submissiondikoding.feature.home.presenter.MatchPresenter
 import com.alfatih.submissiondikoding.utils.DateStringUtils
 
 class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext: Boolean):
@@ -53,8 +54,9 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
             matchClick.setOnClickListener {
                 callback?.onItemLeaguesClick(adapterPosition)
             }
+
             when {
-                isNext || model.isNextMatch -> {
+                isNext || isNextFavorite(model) -> {
                     teamOneScor.visibility = View.GONE
                     teamTwoScor.visibility = View.GONE
                 }
@@ -63,7 +65,21 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
                     teamTwoScor.visibility = View.VISIBLE
                 }
             }
+            when {
+                !isNextFavorite(model) -> {
+                    teamOneScor.visibility = View.VISIBLE
+                    teamTwoScor.visibility = View.VISIBLE
+                }
+            }
 
+        }
+    }
+
+    private fun isNextFavorite(model: MatchModel): Boolean{
+        return when(model.isNextMatch){
+            MatchPresenter.KEY_NEXTMATCH -> true
+            MatchPresenter.KEY_PASTMATCH -> false
+            else -> false
         }
     }
 

@@ -22,14 +22,13 @@ class DatabaseHelper(ctx: Context): ManagedSQLiteOpenHelper(ctx,"football.db",nu
     override fun onCreate(db: SQLiteDatabase?) {
         db?.createTable(
                 Constante.KEY_FavoriteTable,true,
-                Constante.KEY_ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
                 Constante.KEY_IdMatch to INTEGER + UNIQUE,
                 Constante.KEY_date to TEXT,
                 Constante.KEY_home_Team to TEXT,
                 Constante.KEY_home_Score to TEXT,
                 Constante.KEY_away_Team to TEXT,
                 Constante.KEY_away_Score to TEXT,
-                Constante.KEY_isNext to TEXT)
+                Constante.KEY_isNext to INTEGER)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, old: Int, new: Int) {

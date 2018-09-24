@@ -2,6 +2,7 @@ package com.alfatih.submissiondikoding.feature.home
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import com.alfatih.submissiondikoding.R
 import com.alfatih.submissiondikoding.feature.home.adapter.LeaguesAdapter
@@ -28,6 +29,7 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback.View, ItemCallback 
         presenter = LeaguesPresenter(this)
         presenter.onAttach(this)
         recyclerLeagues.layoutManager = LinearLayoutManager(this)
+        recyclerLeagues.itemAnimator = DefaultItemAnimator()
         recyclerLeagues.adapter = adapter
     }
 

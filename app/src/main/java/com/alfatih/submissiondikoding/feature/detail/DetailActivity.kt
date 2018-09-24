@@ -18,11 +18,13 @@ import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detail.*
+import org.jetbrains.anko.startActivity
 
 class DetailActivity : AppCompatActivity(), DetailCallback.View {
 
     private lateinit var presenter: DetailPresenter
     private var params = 0
+    private var isNext = 0
     private var menuItem: Menu? = null
     private var isFavorite = false
     private var matchModel: MatchModel? = null
@@ -32,6 +34,7 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
         setContentView(R.layout.activity_detail)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
         params = intent.extras?.getInt("eventId",0)!!
+        isNext = intent.extras?.getInt("isNext",0)!!
         presenter = DetailPresenter(this)
         presenter.onAttach(this)
     }
@@ -44,7 +47,8 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
     override fun onLoadData(model: DetailModel, away: String, home: String) {
         matchModel = MatchModel(
                 model.idEvent.toInt(),model.dateEvent,model.strHomeTeam,model.intHomeScore,
-                model.strAwayTeam,model.intAwayScore,false)
+                model.strAwayTeam,model.intAwayScore,isNext)
+
         presenter.checkingData(model.idEvent.toInt())
 
         detail_score_home.text = model.intHomeScore
@@ -100,11 +104,14 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
         return when (item.itemId){
             R.id.add_to_favorite -> {
                 when {
-                    isFavorite -> presenter.insertFavorite(matchModel!!)
+                    !isFavorite -> presenter.insertFavorite(matchModel!!)
                     else -> presenter.deleteFavorite(params)
                 }
                 isFavorite = !isFavorite
                 setFavorite()
+                true
+            }
+            R.id.home -> {
                 true
             }
             else -> super.onOptionsItemSelected(item)

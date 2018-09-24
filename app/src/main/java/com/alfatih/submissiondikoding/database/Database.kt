@@ -13,13 +13,14 @@ class Database(val ctx: Context){
 
     private var database: DatabaseHelper = ctx.database
 
-    fun selectFavoriteById(id: String): List<MatchModel>?{
+    fun selectFavoriteById(id: Int): List<MatchModel>?{
         var result: List<MatchModel>? = null
         try {
             database.use {
                 result = select(Constante.KEY_FavoriteTable)
-                        .whereSimple(Constante.KEY_IdMatch,id).parseList(classParser())
+                        .whereArgs("(${Constante.KEY_IdMatch} = {id})", "id" to id).parseList(classParser())
             }
+
         }catch (e: Exception){
             e.printStackTrace()
         }
@@ -43,7 +44,7 @@ class Database(val ctx: Context){
         try {
             database.use {
                 val values = ContentValues()
-                values.put(Constante.KEY_ID, model.idMatch)
+                values.put(Constante.KEY_IdMatch, model.idMatch)
                 values.put(Constante.KEY_date, model.date)
                 values.put(Constante.KEY_home_Team, model.teamOneName)
                 values.put(Constante.KEY_home_Score, model.teamOneScore)
@@ -62,7 +63,7 @@ class Database(val ctx: Context){
         try {
             database.use {
                 delete(Constante.KEY_FavoriteTable,
-                        "(${Constante.KEY_ID} = {id})",
+                        "(${Constante.KEY_IdMatch} = {id})",
                         "id" to idEvent)
             }
             ctx.toast("data has been removed")
