@@ -22,6 +22,8 @@ import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.alfatih.submissiondikoding.feature.home.presenter.MatchPresenter
 import com.alfatih.submissiondikoding.utils.DateStringUtils
+import com.alfatih.submissiondikoding.utils.invisible
+import com.alfatih.submissiondikoding.utils.visible
 
 class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext: Boolean):
         RecyclerView.Adapter<MatchAdapter.ViewHolder>(){
@@ -57,18 +59,19 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
 
             when {
                 isNext || isNextFavorite(model) -> {
-                    teamOneScor.visibility = View.GONE
-                    teamTwoScor.visibility = View.GONE
+                    teamTwoScor.invisible()
+                    teamOneScor.invisible()
                 }
                 else -> {
-                    teamOneScor.visibility = View.VISIBLE
-                    teamTwoScor.visibility = View.VISIBLE
+                    teamTwoScor.visible()
+                    teamOneScor.visible()
                 }
             }
+
             when {
                 !isNextFavorite(model) -> {
-                    teamOneScor.visibility = View.VISIBLE
-                    teamTwoScor.visibility = View.VISIBLE
+                    teamOneScor.visible()
+                    teamTwoScor.visible()
                 }
             }
 

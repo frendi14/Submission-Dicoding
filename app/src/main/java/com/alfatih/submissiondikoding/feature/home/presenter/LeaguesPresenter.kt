@@ -20,14 +20,16 @@ class LeaguesPresenter(val context: Context): LeaguesCallback.Presenter {
             val call: Call<LeaguesModel.LeaguesResponse> = Connection.open().getLeagues()
             call.enqueue(object: Callback<LeaguesModel.LeaguesResponse>{
 
-                override fun onResponse(call: Call<LeaguesModel.LeaguesResponse>?, response: Response<LeaguesModel.LeaguesResponse>?) {
-                    if(Connection.checkHttpCode(response!!.code())){
-                        // data di countrys tertentu ada yang null
-                        if (response.body().countrys?.isNotEmpty()){
-                            list.clear()
-                            list.addAll(response.body().countrys)
-                            callback?.onRefreshList(list)
+                override fun onResponse(call: Call<LeaguesModel.LeaguesResponse>?, response: Response<LeaguesModel.LeaguesResponse>) {
+                    if(Connection.checkHttpCode(response.code())){
+                        val responseList = response.body()
+                        list.clear()
+                        responseList.countrys?.let { it ->
+                            it.isNotEmpty().let {
+                                list.addAll(responseList.countrys)
+                            }
                         }
+                        callback?.onRefreshList(list)
                     }
                     callback?.onHideProgress()
                 }

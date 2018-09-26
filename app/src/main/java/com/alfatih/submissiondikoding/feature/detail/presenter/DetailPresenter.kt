@@ -26,31 +26,32 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
             val call: Call<DetailModel.DetailResponse> = Connection.open().getDetail(iventId)
             call.enqueue(object: Callback<DetailModel.DetailResponse>{
 
-                override fun onResponse(call: Call<DetailModel.DetailResponse>?, response: Response<DetailModel.DetailResponse>?) {
-                    if(Connection.checkHttpCode(response!!.code())){
-                        // data di events tertentu ada yang null
-                        if(response.body().events?.isNotEmpty()){
-                            model = response.body().events[0]
-                            model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
+                override fun onResponse(call: Call<DetailModel.DetailResponse>?, response: Response<DetailModel.DetailResponse>) {
+                    if(Connection.checkHttpCode(response.code())){
+                        val responseList = response.body()
+                        responseList.events?.let { it ->
+                            it.isNotEmpty().let {
+                                model = responseList.events[0]
+                                model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
 
-                            model.strHomeGoalDetails = filterString(model.strHomeGoalDetails)
-                            model.strHomeLineupDefense = filterString(model.strHomeLineupDefense)
-                            model.strHomeLineupMidfield = filterString(model.strHomeLineupMidfield)
-                            model.strHomeLineupForward = filterString(model.strHomeLineupForward)
-                            model.strHomeLineupSubstitutes = filterString(model.strHomeLineupSubstitutes)
-                            model.intHomeScore = filterInteger(model.intHomeScore)
-                            model.intHomeShots = filterInteger(model.intHomeShots)
+                                model.strHomeGoalDetails = filterString(model.strHomeGoalDetails)
+                                model.strHomeLineupDefense = filterString(model.strHomeLineupDefense)
+                                model.strHomeLineupMidfield = filterString(model.strHomeLineupMidfield)
+                                model.strHomeLineupForward = filterString(model.strHomeLineupForward)
+                                model.strHomeLineupSubstitutes = filterString(model.strHomeLineupSubstitutes)
+                                model.intHomeScore = filterInteger(model.intHomeScore)
+                                model.intHomeShots = filterInteger(model.intHomeShots)
 
-                            model.strAwayGoalDetails = filterString(model.strAwayGoalDetails)
-                            model.strAwayLineupDefense = filterString(model.strAwayLineupDefense)
-                            model.strAwayLineupMidfield = filterString(model.strAwayLineupMidfield)
-                            model.strAwayLineupForward = filterString(model.strAwayLineupForward)
-                            model.strAwayLineupSubstitutes = filterString(model.strAwayLineupSubstitutes)
-                            model.intAwayScore = filterInteger(model.intAwayScore)
-                            model.intAwayShots = filterInteger(model.intAwayShots)
-
-                            getTeamDetailHome(model.idHomeTeam.toInt())
+                                model.strAwayGoalDetails = filterString(model.strAwayGoalDetails)
+                                model.strAwayLineupDefense = filterString(model.strAwayLineupDefense)
+                                model.strAwayLineupMidfield = filterString(model.strAwayLineupMidfield)
+                                model.strAwayLineupForward = filterString(model.strAwayLineupForward)
+                                model.strAwayLineupSubstitutes = filterString(model.strAwayLineupSubstitutes)
+                                model.intAwayScore = filterInteger(model.intAwayScore)
+                                model.intAwayShots = filterInteger(model.intAwayShots)
+                            }
                         }
+                        getTeamDetailHome(model.idHomeTeam.toInt())
                     }
                 }
 
@@ -63,10 +64,7 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
 
     override fun checkingData(id: Int) {
         val result = database.selectFavoriteById(id)
-        when {
-            (result != null) && (!result.isEmpty()) -> callback?.isExist(true)
-            else -> callback?.isExist(false)
-        }
+        callback?.isExist(result.isNotEmpty())
     }
 
     override fun insertFavorite(model: MatchModel) {
@@ -82,13 +80,13 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
             val call: Call<TeamModel.TeamResponse> = Connection.open().getTeamDetail(id)
             call.enqueue(object: Callback<TeamModel.TeamResponse>{
 
-                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
-                    if (Connection.checkHttpCode(response!!.code())){
-                        // data di teams tertentu ada yang null
-                        if(response.body().teams?.isNotEmpty()){
-                            homeURL = response.body().teams[0].teamBadge
-                            getTeamDetailAway(model.idAwayTeam.toInt())
+                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>) {
+                    if (Connection.checkHttpCode(response.code())){
+                        val responseList = response.body()
+                        responseList.teams?.let {
+                            homeURL = it[0].teamBadge
                         }
+                        getTeamDetailAway(model.idAwayTeam.toInt())
                     }
                 }
 
@@ -104,13 +102,13 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
             val call: Call<TeamModel.TeamResponse> = Connection.open().getTeamDetail(id)
             call.enqueue(object: Callback<TeamModel.TeamResponse>{
 
-                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>?) {
-                    if (Connection.checkHttpCode(response!!.code())){
-                        // data di teams tertentu ada yang null
-                        if(response.body().teams?.isNotEmpty()){
-                            awayURL = response.body().teams[0].teamBadge
-                            callback?.onLoadData(model,awayURL,homeURL)
+                override fun onResponse(call: Call<TeamModel.TeamResponse>?, response: Response<TeamModel.TeamResponse>) {
+                    if (Connection.checkHttpCode(response.code())){
+                        val listResponse = response.body()
+                        listResponse.teams?.let {
+                            awayURL = it[0].teamBadge
                         }
+                        callback?.onLoadData(model,awayURL,homeURL)
                     }
                     callback?.onHideProgress()
                 }
@@ -131,17 +129,11 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
     }
 
     fun filterString(input: String?):String{
-        return when {
-            input.isNullOrEmpty() -> ""
-            else -> input!!.replace(";","\n")
-        }
+         return input?.replace(";","\n") ?: ""
     }
 
     fun filterInteger(input: String?): String{
-        return when {
-            input.isNullOrEmpty()-> "0"
-            else -> input.toString()
-        }
+        return input ?: "0"
     }
 
 }

@@ -6,5 +6,5 @@ data class TeamModel(
         @SerializedName("strTeamBadge")
         var teamBadge: String
 ) {
-    data class TeamResponse(var teams: List<TeamModel>)
+    data class TeamResponse(var teams: List<TeamModel>?)
 }

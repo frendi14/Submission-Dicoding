@@ -9,12 +9,12 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.toast
 
-class Database(val ctx: Context){
+class Database(private val ctx: Context){
 
     private var database: DatabaseHelper = ctx.database
 
-    fun selectFavoriteById(id: Int): List<MatchModel>?{
-        var result: List<MatchModel>? = null
+    fun selectFavoriteById(id: Int): List<MatchModel>{
+        var result: List<MatchModel> = ArrayList()
         try {
             database.use {
                 result = select(Constante.KEY_FavoriteTable)
@@ -27,8 +27,8 @@ class Database(val ctx: Context){
         return result
     }
 
-    fun selectFavorite(): List<MatchModel>?{
-        var result: List<MatchModel>? = null
+    fun selectFavorite(): List<MatchModel>{
+        var result: List<MatchModel> = ArrayList()
         try {
             database.use {
                 result = select(Constante.KEY_FavoriteTable)

@@ -40,7 +40,9 @@ class LeaguesAdapter(val context: Context, private var list: MutableList<Leagues
         fun bindItem(items: LeaguesModel) {
             textLeagues.text = items.leagues
             Glide.with(context).load(items.logo)
-                    .apply(RequestOptions().override(500,400).error(R.drawable.ic_logonotfound).placeholder(R.drawable.ic_logonotfound))
+                    .apply(RequestOptions().override(500,400)
+                            .error(R.drawable.ic_logonotfound)
+                            .placeholder(R.drawable.ic_logonotfound))
                     .into(textLogo)
             leaguesLayout.setOnClickListener {
                 callback?.onItemLeaguesClick(adapterPosition)

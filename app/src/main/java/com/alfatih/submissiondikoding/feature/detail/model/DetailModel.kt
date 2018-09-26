@@ -79,5 +79,5 @@ data class DetailModel(
         @SerializedName("idAwayTeam")
         var idAwayTeam: String
 ) {
-        data class DetailResponse (val events: List<DetailModel>)
+        data class DetailResponse (val events: List<DetailModel>?)
 }

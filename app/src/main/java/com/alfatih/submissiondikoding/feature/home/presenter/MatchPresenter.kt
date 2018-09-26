@@ -31,17 +31,15 @@ class MatchPresenter(val context: Context): MatchCallback.Presenter {
 
             call?.enqueue(object: Callback<MatchModel.ListMatchResponse>{
 
-                override fun onResponse(call: Call<MatchModel.ListMatchResponse>?, response: Response<MatchModel.ListMatchResponse>?) {
-                    if(Connection.checkHttpCode(response!!.code())){
-                        // data di league tertentu ada ynag null
-                        if((response.body().events != null)){
-                            list.clear()
-                            list.addAll(response.body().events!!)
-                            callback?.onRefreshList(list, req)
-                        }else{
-                            list.clear()
-                            callback?.onRefreshList(list, req)
+                override fun onResponse(call: Call<MatchModel.ListMatchResponse>?, response: Response<MatchModel.ListMatchResponse>) {
+                    if(Connection.checkHttpCode(response.code())){
+
+                        val listResponse = response.body()
+                        list.clear()
+                        listResponse.events?.let {
+                            list.addAll(listResponse.events)
                         }
+                        callback?.onRefreshList(list,req)
                         callback?.onHideProgress()
                     }
                 }
@@ -58,8 +56,10 @@ class MatchPresenter(val context: Context): MatchCallback.Presenter {
         val db = Database(context)
         val listDb = db.selectFavorite()
         list.clear()
-        if((listDb != null) && !listDb.isEmpty()){
-            list.addAll(db.selectFavorite()!!.toTypedArray())
+        listDb.let { it->
+            it.isNotEmpty().let {
+                list.addAll(db.selectFavorite())
+            }
         }
         callback?.onRefreshList(list, 0)
     }

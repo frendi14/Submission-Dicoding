@@ -33,8 +33,8 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
-        params = intent.extras?.getInt("eventId",0)!!
-        isNext = intent.extras?.getInt("isNext",0)!!
+        params = intent.extras?.getInt("eventId",0) as Int
+        isNext = intent.extras?.getInt("isNext",0) as Int
         presenter = DetailPresenter(this)
         presenter.onAttach(this)
     }
@@ -104,7 +104,12 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
         return when (item.itemId){
             R.id.add_to_favorite -> {
                 when {
-                    !isFavorite -> presenter.insertFavorite(matchModel!!)
+                    !isFavorite -> {
+                        val params = matchModel
+                        params?.let {
+                            presenter.insertFavorite(params)
+                        }
+                    }
                     else -> presenter.deleteFavorite(params)
                 }
                 isFavorite = !isFavorite

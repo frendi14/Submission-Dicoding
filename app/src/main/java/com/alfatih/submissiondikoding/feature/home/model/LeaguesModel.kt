@@ -10,5 +10,5 @@ data class LeaguesModel(
         @SerializedName("strLogo")
         var logo: String) {
 
-    data class LeaguesResponse (val countrys: List<LeaguesModel>)
+    data class LeaguesResponse (val countrys: List<LeaguesModel>?)
 }
