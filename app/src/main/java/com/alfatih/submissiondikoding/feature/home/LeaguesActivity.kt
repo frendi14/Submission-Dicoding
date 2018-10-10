@@ -10,6 +10,7 @@ import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.contract.LeaguesCallback
 import com.alfatih.submissiondikoding.feature.home.model.LeaguesModel
 import com.alfatih.submissiondikoding.feature.home.presenter.LeaguesPresenter
+import com.alfatih.submissiondikoding.utils.EsspressoIdleing
 import com.alfatih.submissiondikoding.utils.invisible
 import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_leagues.*
@@ -26,7 +27,7 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback.View, ItemCallback 
         setContentView(R.layout.activity_leagues)
         adapter = LeaguesAdapter(this,lists)
         adapter.setLeaguesCallback(this)
-        presenter = LeaguesPresenter(this)
+        presenter = LeaguesPresenter()
         presenter.onAttach(this)
         recyclerLeagues.layoutManager = LinearLayoutManager(this)
         recyclerLeagues.itemAnimator = DefaultItemAnimator()
@@ -35,10 +36,12 @@ class LeaguesActivity : AppCompatActivity(), LeaguesCallback.View, ItemCallback 
 
     override fun onStart() {
         super.onStart()
+        EsspressoIdleing.increment()
         presenter.getDataLeagues()
     }
 
     override fun onRefreshList(list: ArrayList<LeaguesModel>) {
+        EsspressoIdleing.decrement()
         lists.clear()
         lists.addAll(list)
         adapter.notifyDataSetChanged()

@@ -5,6 +5,7 @@ import com.alfatih.submissiondikoding.connection.Connection
 import com.alfatih.submissiondikoding.database.Database
 import com.alfatih.submissiondikoding.feature.home.contract.MatchCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
+import com.alfatih.submissiondikoding.utils.EsspressoIdleing
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,6 +21,7 @@ class MatchPresenter(val context: Context): MatchCallback.Presenter {
     }
 
     override fun getData(req: Int, id: Int) {
+        EsspressoIdleing.increment()
         if(Connection.isNetworkAvailable(context)){
             callback?.onShowProgress()
             var call: Call<MatchModel.ListMatchResponse>? = null

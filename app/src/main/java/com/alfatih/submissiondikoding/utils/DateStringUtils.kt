@@ -8,20 +8,13 @@ import java.util.*
 
 object DateStringUtils {
 
-    fun formatingWithDay(date: String): String{
-        return formatting("yyyy-MM-dd", "E, dd MMMM yyyy",date)
-    }
-
-    private fun formatting(inputFormat: String, outputFormat: String, source: String): String {
-        try {
-            if (TextUtils.isEmpty(source)) {
-                return ""
-            }
-            val simpleInputFormat = SimpleDateFormat(inputFormat,Locale("in","ID"))
-            val simpleOutputFormat = SimpleDateFormat(outputFormat,Locale("in","ID"))
-            return simpleOutputFormat.format(simpleInputFormat.parse(source))
+    fun formatting(source: String): String {
+        return try {
+            val simpleInputFormat = SimpleDateFormat("yyyy-MM-dd",Locale("in","ID"))
+            val simpleOutputFormat = SimpleDateFormat("E, dd MMMM yyyy",Locale("in","ID"))
+            simpleOutputFormat.format(simpleInputFormat.parse(source))
         } catch (e: ParseException) {
-            return source
+            source
         }
 
     }

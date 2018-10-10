@@ -15,10 +15,10 @@ import com.alfatih.submissiondikoding.utils.invisible
 import com.alfatih.submissiondikoding.utils.visible
 import com.alfatih.submissiondikoding.R.menu.add_to_favorite
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
+import com.alfatih.submissiondikoding.utils.EsspressoIdleing
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_detail.*
-import org.jetbrains.anko.startActivity
 
 class DetailActivity : AppCompatActivity(), DetailCallback.View {
 
@@ -41,10 +41,12 @@ class DetailActivity : AppCompatActivity(), DetailCallback.View {
 
     override fun onStart() {
         super.onStart()
+        EsspressoIdleing.increment()
         presenter.getDataDetail(params)
     }
 
     override fun onLoadData(model: DetailModel, away: String, home: String) {
+        EsspressoIdleing.decrement()
         matchModel = MatchModel(
                 model.idEvent.toInt(),model.dateEvent,model.strHomeTeam,model.intHomeScore,
                 model.strAwayTeam,model.intAwayScore,isNext)

@@ -52,7 +52,7 @@ class MatchAdapter(private var list: MutableList<MatchModel>, private var isNext
             teamOneScor.text = model.teamOneScore
             teamTwoname.text = model.teamTwoName
             teamTwoScor.text = model.teamTwoScore
-            teamDates.text = DateStringUtils.formatingWithDay(model.date)
+            teamDates.text = DateStringUtils.formatting(model.date)
             matchClick.setOnClickListener {
                 callback?.onItemLeaguesClick(adapterPosition)
             }

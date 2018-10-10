@@ -32,7 +32,7 @@ class DetailPresenter (val context: Context): DetailCallback.Presenter {
                         responseList.events?.let { it ->
                             it.isNotEmpty().let {
                                 model = responseList.events[0]
-                                model.dateEvent = DateStringUtils.formatingWithDay(model.dateEvent)
+                                model.dateEvent = DateStringUtils.formatting(model.dateEvent)
 
                                 model.strHomeGoalDetails = filterString(model.strHomeGoalDetails)
                                 model.strHomeLineupDefense = filterString(model.strHomeLineupDefense)

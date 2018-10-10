@@ -12,6 +12,7 @@ import com.alfatih.submissiondikoding.feature.home.contract.ItemCallback
 import com.alfatih.submissiondikoding.feature.home.contract.MatchCallback
 import com.alfatih.submissiondikoding.feature.home.model.MatchModel
 import com.alfatih.submissiondikoding.feature.home.presenter.MatchPresenter
+import com.alfatih.submissiondikoding.utils.EsspressoIdleing
 import com.alfatih.submissiondikoding.utils.invisible
 import com.alfatih.submissiondikoding.utils.visible
 import kotlinx.android.synthetic.main.activity_match.*
@@ -81,6 +82,7 @@ class MatchActivity : AppCompatActivity(), ItemCallback, MatchCallback.View {
     }
 
     override fun onRefreshList(list: ArrayList<MatchModel>, next: Int) {
+        EsspressoIdleing.decrement()
         lists.clear()
         lists.addAll(list)
         adapter.notifyDataSetChanged()
